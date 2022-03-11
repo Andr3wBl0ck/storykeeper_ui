@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/2fdfe5b3-357e-4e4e-85ba-fe0e31e113be/resourceGroups/Storykeeper_group/providers/Microsoft.Web/sites/Storykeeper",
+    "appService.deploySubpath": "."
+}
