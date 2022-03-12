@@ -1,1 +1,1 @@
-## This is the header
+## CTU CompSci Team Project | CS492 | Group 1 | Book Management System
