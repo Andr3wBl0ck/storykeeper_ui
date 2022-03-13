@@ -1,5 +1,7 @@
+
 from flask import Flask
 from flask import render_template, url_for
+
 
 app = Flask(__name__)
 
@@ -15,9 +17,20 @@ def render_cart():
 def render_inventory():
     return render_template("inventory.html")
 
+
+
 @app.route("/orderhistory")
 def render_orderhistory():
-    return render_template("orderhistory.html")
+   
+   return render_template("orderhistory.html")
+
+
+   #return render_template( Response(output.getvalue(), mimetype='image/png')
+ 
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
