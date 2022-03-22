@@ -5,65 +5,93 @@ Created on Thu Mar  3 19:57:09 2022
 @author: Jason Harris
 """
 
-import requests                                                         # importing requests module
+import requests                                                     # importing requests module
 import json
 
 url = "http://170.187.155.230:9500/api/books"
                         
-username = input("User Name:")
-password = input("Password:")
+# =============================================================================
+# username = input("User Name:")
+# password = input("Password:")4
+# =============================================================================
 
-book1 = {}
+result = requests.get(url).text                                          # The URL to get info from the api
+result_data = json.loads(result) 
+count = 0
+type = input("What are you looking for?")
+name = input("Tell me all about it: ")
 
-result = requests.get(url)                                              # The URL to get info from the api
-result_data = result.json() 
+newUrl = url + "/" + type + "?" + type + "=" + name
+newResult = requests.get(newUrl).text
+newResult_data = json.loads(newResult)
 
-def jprint(obj):                                                        # to print the contents of the json
-    text = json.dumps(obj, sort_keys=True, indent=4)                    # create a formatted string of the Python JSON object
+def jprint(obj):                                                    # to print the contents of the json
+    text = json.dumps(obj, sort_keys=True, indent=4)                # create a formatted string of the Python JSON object
     print(text)
 
-jprint(result_data) 
+# jprint(result_data)
 
-print(result_data)
-
-decision = input("What will you do? (search/add/edit/remove):").lower()
-if decision == "search":
-    searchChoice = input("What will you search by? (title, author, ISBN):").lower()
-    if searchChoice == "author":
-        author = input("Which Author? (First Last Name):").lower()
-        for i in result_data:                                                   # iterate through the json to look for title
-            if i == author in result_data:
-                print("Author's works in our system at ", i)
-                print(result_data[i])                                           # found the data
-                typed = result_data[i]                                          # creating a list of the dict data
-                title = typed["url"]                                            # assigning the data to a variable
-                print(title)                                                    # verifying the data
-    if searchChoice == "title":
-        title = input("What is the Title?:").lower()
-        for i in result_data:                                                   # iterate through the json to look for title
-            if i == title in result_data:
-                print("Title is in our system at ", i)
-                print(result_data[i])                                           # found the data
-                typed = result_data[i]                                          # creating a list of the dict data
-                title = typed["url"]                                            # assigning the data to a variable
-                print(title, "Here")                                            # verifying the data
-        if searchChoice == "isbn":
-            ISBN = input("What is the ISBN?:").lower()
-            for i in result_data:                                               # iterate through the json to look for title
-                if i == title in result_data:
-                    print("This item is in our system at ", i)
-                    print(result_data[i])                                       # found the data
-                    typed = result_data[i]                                      # creating a list of the dict data
-                    title = typed["url"]                                        # assigning the data to a variable
-                    print(title, "Here")                                        # verifying the data
+print(newResult_data[0]['author'])
 
 
-if result:
-  print('Request is successful.')
-else:
-  print('Request returned an error.')
 
-print(type(result.json()))
+# [(i, d) for i, d in enumerate(result_data) if 'author' in d.values()]
 
-type = " "                                                                      # Making a variable to hold the title URL
-                                          
+# =============================================================================
+# for i in result_data:                                               # iterate through the json inventory
+#     count = count +1                                                # keeping track of the index count
+#     print("Inventory Slot:", count, "\n")                           # incrementing the index count
+#     author = i["author"]                                            # assigning the data to a variable
+#     print("Author:", author, "\n")                                 # verifying the data                              
+#     title = i["title"]                                              # assigning the data to a variable
+#     print("Title:", title, "\n")                                   # verifying the data
+#     isbn = i["isbn"]                                                # assigning the data to a variable
+#     print("ISBN:", isbn, "\n")                                     # verifying the data
+#     publisher = i["publisher"]                                      # assigning the data to a variable
+#     print("Publisher:", publisher, "\n")                           # verifying the data
+#     price = i["priceEach"]                                          # assigning the data to a variable
+#     print("Price Each USD: $",price, "\n")                              # verifying the data
+#     genre = i["category"]                                           # assigning the data to a variable
+#     print("Genre:", genre, "\n")                                   # verifying the data
+#     quantity = i["qty"]                                             # assigning the data to a variable
+#     print("QTY:", quantity)                                        # verifying the data
+#     print('\n ************************************************************')
+# =============================================================================
+
+# =============================================================================
+# def find_index(result_data, key, value):
+#     class Null: pass
+#     for i, d in enumerate(result_data):
+#         if d.get(key, Null) == value:
+#             return i
+#     else:
+#         raise ValueError('no dict with the key and value combination found')
+# 
+# searchParam = input("What kind of search: title, author, category, publisher, or ISBN:").lower() # taking key type input    
+# searchCrit = input("What will you search for?")                                                  # taking data entered
+# index_found = find_index(result_data, searchParam, searchCrit)
+# 
+# search_found = index_found # ['author', 'title' 'publisher', 'qty', 'priceEach', 'category']
+# 
+# print(search_found)
+#  
+# if result:
+#   print('Request is successful.')
+# else:
+#   print('Request returned an error.')
+# 
+# # Input the item name that you want to search
+# item = input("Enter a name:\n")
+# 
+# # Define a function to search the item
+# def search_dict (name):
+#  for keyval in result_data:
+#   if name.lower() == keyval['author'].lower():
+#    return keyval['author']
+# 
+# # Check the return value and print message
+# if (search_dict(item) != None):
+#   print("The author is:", search_dict(item))
+# else:
+#   print("Item is not found")
+# =============================================================================
